@@ -1,0 +1,91 @@
+import telebot
+from telebot import types
+
+bot = telebot.TeleBot('2081778789:AAGFFE1GE6456CFukGZlwfRBnP31DBme_f8');
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
+    item1=types.KeyboardButton('Қоңырау уақыты')
+    item2=types.KeyboardButton('Online')
+    item3=types.KeyboardButton('Расписания')
+    item4=types.KeyboardButton('Offline')
+
+    markup.add(item1,item2,item3,item4)
+
+    bot.send_message(message.chat.id,'Привет, {0.first_name}!'.format(message.from_user),reply_markup=markup)
+
+@bot.message_handler(content_types='text')
+def bot_message(message):
+    if message.chat.type=='private':
+        if message.text=='Қоңырау уақыты':
+            bot.send_message(message.chat.id,'1. 14:00-14:50\n2. 15:10-16:00\n3. 16:20-17:10\n4. 17:30-18:20\n5. 18:40-19:30')
+            
+    
+    if message.text=='Online':
+        markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
+        item1=types.KeyboardButton('Қосымшаларды құру(On)')
+        item2=types.KeyboardButton('Жасанды интелект(On)')
+        item3=types.KeyboardButton('1С(On)')
+        item4=types.KeyboardButton('Мәліметтер базасы(On)')
+        item5=types.KeyboardButton('Академиялық жазу(On)')
+        back=types.KeyboardButton('Артқа')
+        markup.add(item1,item2,item3,item4,item5,back)
+
+        bot.send_message(message.chat.id,'Online', reply_markup = markup)
+
+    if message.text=='Қосымшаларды құру(On)':
+        bot.send_message(message.chat.id,'https://us04web.zoom.us/j/8789441312?pwd=SjcxVjdoWnZIT05NdjBuTGFOaWk3Zz09')
+
+    if message.text=='Жасанды интелект(On)':
+        bot.send_message(message.chat.id,'https://us04web.zoom.us/j/8789441312?pwd=SjcxVjdoWnZIT05NdjBuTGFOaWk3Zz09')
+
+    if message.text=='1С(On)':
+        bot.send_message(message.chat.id,'https://us04web.zoom.us/j/9111130722?pwd=K2d2d1kvdTZ0NWQrYlB1STFTTFNrZz09')
+
+    if message.text=='Мәліметтер базасы(On)':
+        bot.send_message(message.chat.id,'https://us04web.zoom.us/j/4284042322?pwd=SEZJM0VzNkcxUGR1REt5ejVmSlVadz09')
+
+    if message.text=='Академиялық жазу(On)':
+        bot.send_message(message.chat.id,'https://us04web.zoom.us/j/9111130722?pwd=K2d2d1kvdTZ0NWQrYlB1STFTTFNrZz09')
+
+    if message.text=='Offline':
+        markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
+        item1=types.KeyboardButton('Қосымшаларды құру(Off)')
+        item2=types.KeyboardButton('Жасанды интелект(Off)')
+        item3=types.KeyboardButton('1С(Off)')
+        item4=types.KeyboardButton('Мәліметтер базасы(Off)')
+        item5=types.KeyboardButton('Академиялық жазу(Off)')
+        back=types.KeyboardButton('Артқа')
+        markup.add(item1,item2,item3,item4,item5,back)
+
+        bot.send_message(message.chat.id,'Offline', reply_markup = markup)
+
+    if message.text=='Қосымшаларды құру(Off)':
+        bot.send_message(message.chat.id,'Пр 304кб : Ташимова А.К' '\n' 'Лаб 407,409кб : Ташимова А.К, Капарова А.Е' )
+    
+    if message.text=='Жасанды интелект(Off)':
+        bot.send_message(message.chat.id,'Пр 304кб : Ташимова А.К' '\n' 'Лаб 407,409кб : Ташимова А.К, Шаукенбаева А.К')
+
+    if message.text=='1С(Off)':
+        bot.send_message(message.chat.id,'Пр Tп7кб : Раманқұлов А.А' '\n' 'Лаб Tп7,Тп2кб : Раманқұлов А.А, Дуйсенгалиева А.Д')
+
+    if message.text=='Мәліметтер базасы(Off)':
+        bot.send_message(message.chat.id,'Пр Tп2кб : Кереев А.К' '\n' 'Лаб Tп7,302кб : Кереев А.К, Жумагулова А.А')
+
+    if message.text=='Академиялық жазу(Off)':
+        bot.send_message(message.chat.id,'Пр 407кб : Нарбекова З.Т')
+
+    if message.text=='Артқа':
+        markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
+        item1=types.KeyboardButton('Қоңырау уақыты')
+        item2=types.KeyboardButton('Online')
+        item3=types.KeyboardButton('Расписания')
+        item4=types.KeyboardButton('Offline')
+        markup.add(item1,item2,item3,item4)
+        bot.send_message(message.chat.id,'Артқа',reply_markup=markup)
+
+    if message.text=='Расписания':
+        p=open("расписания.jpeg",'rb')
+        bot.send_photo(message.chat.id,p)
+bot.polling(none_stop=True)
